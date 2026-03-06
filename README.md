@@ -155,9 +155,11 @@ ncmplaylist/
 
 ## Support / 赞赏
 
-If this tool is helpful, consider sponsoring to support development!
+开源不易，熬夜写代码全靠咖啡续命 ☕
 
-如果这个工具对你有帮助，欢迎赞赏支持开发者！
+如果这个工具帮你省下了时间，不妨请作者喝杯咖啡，让下一个版本来得更快一点 :)
+
+Open source takes time and coffee. If this tool saved you hours of work, consider buying me a coffee to fuel the next update.
 
 [![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-red?style=for-the-badge&logo=github)](https://github.com/sponsors/waylinwang)
 
