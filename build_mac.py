@@ -75,8 +75,7 @@ cmd = [
     "--windowed",
     "--noconfirm",
     "--clean",
-    # macOS 图标（如果有的话）
-    # "--icon", "icon.icns",
+    "--icon", os.path.join(base_dir, "icon.icns"),
 ]
 
 # 添加数据文件
