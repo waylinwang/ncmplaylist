@@ -1,0 +1,7 @@
+pyncm>=1.6.0
+openpyxl>=3.1.0
+tqdm>=4.65.0
+mutagen>=1.47.0
+requests>=2.31.0
+qrcode[pil]>=7.4
+streamlit>=1.30.0

@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+.session_cache
+progress.json
+downloads/
+dist/
+build/
+*.spec
+*.egg-info/
+_tmp_*
+result_report.xlsx
+.DS_Store
