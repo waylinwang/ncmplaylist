@@ -161,12 +161,9 @@ If this tool is helpful, consider sponsoring to support development!
 
 [![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-red?style=for-the-badge&logo=github)](https://github.com/sponsors/waylinwang)
 
-<!-- 如果有微信/支付宝收款码，取消注释并替换图片路径 -->
-<!-- ### WeChat Pay / 微信赞赏 -->
-<!-- ![微信赞赏码](screenshots/wechat-pay.png) -->
-
-<!-- ### Alipay / 支付宝 -->
-<!-- ![支付宝收款码](screenshots/alipay.png) -->
+| WeChat Pay 微信赞赏 | Alipay 支付宝 |
+|:---:|:---:|
+| <img src="screenshots/wechat-pay.png" width="250"> | <img src="screenshots/alipay.png" width="250"> |
 
 ## License
 
