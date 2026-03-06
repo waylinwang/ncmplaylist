@@ -58,7 +58,8 @@ def download_song(song_id: int, category: str = "", base_dir: str = None, bitrat
 
     返回文件路径，失败返回 None
     """
-    base_dir = base_dir or os.path.join(os.path.dirname(__file__), DOWNLOADS_DIR)
+    from config import get_data_dir
+    base_dir = base_dir or os.path.join(get_data_dir(), DOWNLOADS_DIR)
 
     # 获取下载链接
     audio_info = get_song_url(song_id, bitrate=bitrate)

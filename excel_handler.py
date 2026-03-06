@@ -6,7 +6,9 @@ from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 
 
-TEMPLATE_PATH = os.path.join(os.path.dirname(__file__), "template", "song_list_template.xlsx")
+from config import get_app_dir, get_data_dir
+
+TEMPLATE_PATH = os.path.join(get_app_dir(), "template", "song_list_template.xlsx")
 
 HEADERS = ["歌曲名称 (必填)", "歌手 (选填)", "专辑 (选填)", "分类/歌单 (选填)", "备注 (选填)"]
 EXAMPLE_DATA = [

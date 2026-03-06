@@ -1,5 +1,28 @@
 """配置常量"""
 
+import os
+import sys
+
+
+def get_data_dir() -> str:
+    """获取可写的数据目录（解决 macOS App Translocation 只读问题）"""
+    if getattr(sys, '_MEIPASS', None):
+        # PyInstaller 打包环境 → 写到用户目录
+        d = os.path.join(os.path.expanduser("~"), ".neteasymusic")
+    else:
+        # 开发环境 → 写到项目目录
+        d = os.path.dirname(os.path.abspath(__file__))
+    os.makedirs(d, exist_ok=True)
+    return d
+
+
+def get_app_dir() -> str:
+    """获取应用资源目录（只读，用于读取模板等）"""
+    if getattr(sys, '_MEIPASS', None):
+        return sys._MEIPASS
+    return os.path.dirname(os.path.abspath(__file__))
+
+
 # 音质设置 (bitrate)
 BITRATE = 320000  # 320kbps VIP 音质
 

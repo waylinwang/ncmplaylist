@@ -6,7 +6,7 @@ import argparse
 from collections import defaultdict
 from tqdm import tqdm
 
-from config import DEFAULT_PLAYLIST_NAME, REPORT_FILE, DOWNLOADS_DIR
+from config import DEFAULT_PLAYLIST_NAME, REPORT_FILE, DOWNLOADS_DIR, get_data_dir
 from auth import ensure_login, qrcode_login, check_login
 from excel_handler import generate_template, read_song_list, generate_report
 from search import batch_search
@@ -208,7 +208,7 @@ def cmd_run(args):
 
         report_data.append(entry)
 
-    report_path = generate_report(report_data, REPORT_FILE)
+    report_path = generate_report(report_data, os.path.join(get_data_dir(), REPORT_FILE))
     print(f"报告已生成: {os.path.abspath(report_path)}")
 
     # 最终汇总

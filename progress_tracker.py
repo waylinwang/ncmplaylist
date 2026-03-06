@@ -2,7 +2,7 @@
 
 import os
 import json
-from config import PROGRESS_FILE
+from config import PROGRESS_FILE, get_data_dir
 
 
 class ProgressTracker:
@@ -10,7 +10,7 @@ class ProgressTracker:
 
     def __init__(self, task_id: str = "default"):
         self.task_id = task_id
-        self.path = os.path.join(os.path.dirname(__file__), PROGRESS_FILE)
+        self.path = os.path.join(get_data_dir(), PROGRESS_FILE)
         self.data = self._load()
 
     def _load(self) -> dict:

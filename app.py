@@ -21,7 +21,7 @@ from search import search_song
 from downloader import download_song
 from playlist_manager import batch_create_playlists
 from progress_tracker import ProgressTracker
-from config import DEFAULT_PLAYLIST_NAME, REPORT_FILE
+from config import DEFAULT_PLAYLIST_NAME, REPORT_FILE, get_data_dir, get_app_dir
 
 # ── 页面配置 ──
 st.set_page_config(page_title="NCM 批量下载", page_icon="🎵", layout="wide",
@@ -300,7 +300,7 @@ def _qr_to_b64(url: str) -> str:
 
 
 def _zip_downloads() -> bytes | None:
-    d = os.path.join(os.path.dirname(__file__), "downloads")
+    d = os.path.join(get_data_dir(), "downloads")
     if not os.path.isdir(d):
         return None
     buf = io.BytesIO()
@@ -322,7 +322,7 @@ def _zip_downloads() -> bytes | None:
 def _reset_login():
     for k in ("logged_in", "username", "vip", "qr_uuid", "qr_b64", "scan_status"):
         st.session_state[k] = _DEFAULTS[k]
-    p = os.path.join(os.path.dirname(__file__), ".session_cache")
+    p = os.path.join(get_data_dir(), ".session_cache")
     if os.path.exists(p):
         os.remove(p)
 
@@ -363,14 +363,14 @@ def _sidebar():
 
         st.divider()
         st.markdown('<div class="sidebar-label">Tools</div>', unsafe_allow_html=True)
-        tpl = os.path.join(os.path.dirname(__file__), "template", "song_list_template.xlsx")
+        tpl = os.path.join(get_app_dir(), "template", "song_list_template.xlsx")
         if not os.path.exists(tpl):
             generate_template()
         with open(tpl, "rb") as f:
             st.download_button("Excel 模板", f.read(),
                                file_name="song_list_template.xlsx", use_container_width=True)
 
-        rpt = os.path.join(os.path.dirname(__file__), REPORT_FILE)
+        rpt = os.path.join(get_data_dir(), REPORT_FILE)
         if os.path.exists(rpt):
             with open(rpt, "rb") as f:
                 st.download_button("结果报告", f.read(),
@@ -592,7 +592,7 @@ def _run(songs, do_dl, do_pl, resume, bitrate=320000):
             e.update(matched_name="", matched_artist="", matched_album="",
                      status="未找到", file_path="", note="")
         report_data.append(e)
-    generate_report(report_data, REPORT_FILE)
+    generate_report(report_data, os.path.join(get_data_dir(), REPORT_FILE))
 
     st.session_state.search_results = results
     st.session_state.stats = stats
@@ -680,7 +680,7 @@ def main():
     # 缓存解析结果
     file_key = f"{uploaded.name}_{uploaded.size}"
     if st.session_state.get("_file_key") != file_key:
-        tmp = os.path.join(os.path.dirname(__file__), f"_tmp_{uploaded.name}")
+        tmp = os.path.join(get_data_dir(), f"_tmp_{uploaded.name}")
         with open(tmp, "wb") as f:
             f.write(uploaded.getvalue())
         try:

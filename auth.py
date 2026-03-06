@@ -10,11 +10,11 @@ from pyncm.apis.login import (
     GetCurrentLoginStatus,
     GetLoginQRCodeUrl,
 )
-from config import SESSION_FILE
+from config import SESSION_FILE, get_data_dir
 
 
 def _session_path() -> str:
-    return os.path.join(os.path.dirname(__file__), SESSION_FILE)
+    return os.path.join(get_data_dir(), SESSION_FILE)
 
 
 def _get_profile() -> dict | None:
