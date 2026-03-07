@@ -23,9 +23,10 @@ Batch search, download songs from NetEase Cloud Music and auto-create playlists.
 - **Auto Playlist / 自动建歌单** - Create playlists by category, skip existing duplicates
 - **Resume / 断点续传** - Continue from where you left off after interruption
 - **QR Login / 扫码登录** - Scan with phone, session auto-cached
-- **Web UI / Web 界面** - Streamlit visual interface, friendly for non-developers
+- **Custom Download Dir / 自定义下载目录** - Default `~/Desktop/ncmdownloads`, configurable in settings
+- **Web UI / Web 界面** - Streamlit visual interface with Morandi color scheme
 - **CLI / 命令行** - For batch automation
-- **macOS Packaging / macOS 打包** - One-click PyInstaller build to `.app`
+- **macOS App / macOS 应用** - PyInstaller build to `.app`, ad-hoc signed, double-click to run
 
 ---
 
@@ -116,9 +117,14 @@ python main.py report
 python build_mac.py
 ```
 
-Generates `dist/neteasymusic.app` (approx. 218MB). Double-click to run - no Python installation required.
+Generates `dist/neteasymusic.app` with ad-hoc code signing. Double-click to run - no Python installation required.
 
-生成 `dist/neteasymusic.app`，双击即可运行，无需安装 Python。
+生成 `dist/neteasymusic.app`，已包含 ad-hoc 签名，双击即可运行，无需安装 Python。
+
+> **Note / 提示**: On other Macs, if macOS Gatekeeper shows a security warning, run:
+> ```bash
+> sudo xattr -cr /path/to/neteasymusic.app
+> ```
 
 ---
 
@@ -148,9 +154,11 @@ ncmplaylist/
 ## Notes / 注意事项
 
 - High-quality downloads require a NetEase Cloud Music VIP account
+- Default download directory: `~/Desktop/ncmdownloads` (customizable in Web UI sidebar)
 - Default request interval is 0.8s to avoid API rate limiting
 - Max 500 songs per playlist, auto-split if exceeded
-- Session cached in `.session_cache` file; delete it to re-login
+- Session cached in `~/.neteasymusic/.session_cache`; delete it to re-login
+- On other Macs, if Gatekeeper blocks the app, run: `sudo xattr -cr /path/to/neteasymusic.app`
 - This tool is for personal study and research use only
 
 ## Support / 赞赏
