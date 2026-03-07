@@ -16,6 +16,16 @@ def get_data_dir() -> str:
     return d
 
 
+def get_downloads_dir(custom_dir: str = "") -> str:
+    """获取下载目录，支持自定义路径，默认桌面 ncmdownloads"""
+    if custom_dir:
+        d = custom_dir
+    else:
+        d = os.path.join(os.path.expanduser("~/Desktop"), "ncmdownloads")
+    os.makedirs(d, exist_ok=True)
+    return d
+
+
 def get_app_dir() -> str:
     """获取应用资源目录（只读，用于读取模板等）"""
     if getattr(sys, '_MEIPASS', None):

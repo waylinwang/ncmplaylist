@@ -21,7 +21,7 @@ from search import search_song
 from downloader import download_song
 from playlist_manager import batch_create_playlists
 from progress_tracker import ProgressTracker
-from config import DEFAULT_PLAYLIST_NAME, REPORT_FILE, get_data_dir, get_app_dir
+from config import DEFAULT_PLAYLIST_NAME, REPORT_FILE, get_data_dir, get_app_dir, get_downloads_dir
 
 # ── 页面配置 ──
 st.set_page_config(page_title="NCM 批量下载", page_icon="🎵", layout="wide",
@@ -300,7 +300,7 @@ def _qr_to_b64(url: str) -> str:
 
 
 def _zip_downloads() -> bytes | None:
-    d = os.path.join(get_data_dir(), "downloads")
+    d = get_downloads_dir(st.session_state.get("download_dir", ""))
     if not os.path.isdir(d):
         return None
     buf = io.BytesIO()
@@ -381,6 +381,13 @@ def _sidebar():
             st.download_button("全部歌曲 (ZIP)", zdata,
                                file_name="downloads.zip", mime="application/zip",
                                use_container_width=True)
+
+        st.divider()
+        st.markdown('<div class="sidebar-label">Settings</div>', unsafe_allow_html=True)
+        default_dir = os.path.join(os.path.expanduser("~/Desktop"), "ncmdownloads")
+        dl_dir = st.text_input("下载目录", value=st.session_state.get("download_dir", default_dir),
+                               help="歌曲下载保存路径，默认桌面 ncmdownloads")
+        st.session_state["download_dir"] = dl_dir
 
         st.divider()
         st.markdown('<div class="sidebar-label">Info</div>', unsafe_allow_html=True)
@@ -548,7 +555,8 @@ def _run(songs, do_dl, do_pl, resume, bitrate=320000):
                         stats["downloaded"] += 1
                     else:
                         try:
-                            fp = download_song(sid, category=cat, bitrate=bitrate)
+                            dl_base = get_downloads_dir(st.session_state.get("download_dir", ""))
+                            fp = download_song(sid, category=cat, base_dir=dl_base, bitrate=bitrate)
                             if fp:
                                 tracker.mark_downloaded(sid, fp)
                                 stats["downloaded"] += 1
